@@ -1,3 +1,5 @@
+//this is for form validation
+
 function validateHTMlform()
 { 
   let form = document.StudenSignupForm;
@@ -176,4 +178,9 @@ function resetForm() {
   document.getElementById("dob").value;
   document.getElementById("mobile_no").value;
   
+}
+
+function onEdit(td) {
+  selectedRow = td.parentElement
+
 }
