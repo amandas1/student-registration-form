@@ -8,7 +8,7 @@
   </head>
   <body>
     <div class="main">
-      <form name="StudenSignupForm" onsubmit="event.preventDefault();onFormSubmit();">
+      <form name="StudenSignupForm">
         <div align="center">
           <div class="regform">
             <center><font size=4><b>Student Registration Form</b></font></center>
@@ -55,7 +55,7 @@
           <ul>
             <li class="labels">Address</li>
             <li><input class="textinput" type="text" name="personal_address"
-              id="personaladdress" size="30"></li>
+              id="address" size="30"></li>
           </ul>
           <br>
           <ul>
@@ -137,35 +137,37 @@
             <br>
             <li><input type="reset" style="background-color: red;padding:10px 20px; border-radius:8px; color:white;"></li>
             <br><br>
-            <li><input style="background-color:#19e320;padding:10px 20px; border-radius:8px; color:white;" type="submit"  value="Submit Form" /></li>
+            <li><button style="background-color:#19e320;padding:10px 20px; border-radius:8px; color:white;" class="submit" onclick="addDatatoTable()">Submit</button></li>
           </ul>
           <br><br>
         </div>
       </form>
     </div>
-    <td>
-      <table class="list" id="studentData">
+    
+      <table class="tableData" id="studentData">
         <thead>
           <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Father name</th>
-            <th>gender</th>
-            <th>Address</th>
-            <th>City</th>
-            <th>state</th>
-            <th>Pin code</th>
-            <th>Email</th>
-            <th>Password</th>
-            <th>DOB</th>
-            <th>Mobile</th>
+            <th class="column tablehead firstname">First Name</th>
+            <th class="column tablehead lastname">Last Name</th>
+            <th class="column tablehead fathername">Father name</th>
+            <th class="column tablehead gender">gender</th>
+            <th class="column tablehead course">course</th>
+            <th class="column tablehead address">Address</th>
+            <th class="column tablehead city">City</th>
+            <th class="column tablehead state">state</th>
+            <th class="column tablehead pincode">Pin code</th>
+            <th class="column tablehead emailid">Email</th>
+            <th class="column tablehead password">Password</th>
+            <th class="column tablehead dob">DOB</th>
+            <th class="column tablehead mobile_no">Mobile</th>
+            <th class="column tablehead changes">Make Changes</th>
             <th></th>
           </tr>
         </thead>
         <tbody>
         </tbody>
       </table>
-    </td>
+  
     <script type="text/javascript" src="../js/validateform.js"></script>
   </body>
 </html>
