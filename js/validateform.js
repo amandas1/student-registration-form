@@ -1,30 +1,24 @@
-
-
-
 //Get value for local storage array
 
-function getLocalStorage()
-{
+function getLocalStorage() {
   return JSON.parse(localStorage.getItem('storage'));
 }
 
 //Set value function for write method
 
-function setLocalStorage(newItem)
-{
-   localStorage.setItem('storage', newItem);
+function setLocalStorage(newItem) {
+  localStorage.setItem('storage', newItem);
 }
 
 let defaultData = '[{"_f_firstname":"aman","_f_lastname":"das","_f_fathername":"dadada","_f_gender":"male","_f_course":"MCA","_f_address":"ddsdbsbdh","_f_city":"dadada","_f_state":"male","_f_pincode":"769003","_f_emailid":"male@gmail.com","_f_password":"dadada","_f_dob":"24-10-2021","_f_mobile_no":"7978659331"}]';
 
 //It executes on loading of the page, populate default data in local storage and populate the table
-function onLoadingPage()
-{
+function onLoadingPage() {
   setLocalStorage(defaultData);
   populatetoTable(getLocalStorage());
 }
-var Data = (function(){
-  
+var Data = (function () {
+
   onLoadingPage();
 
 })();
@@ -47,7 +41,7 @@ function populatetoTable(inputData) {
       _f_dob: dob,
       _f_mobile_no: mobile_no,
     } = i;
-    appendrowToTable(firstname, lastname, fathername, gender, course,address,city,state,pincode,emailid,password,dob,mobile_no);
+    appendrowToTable(firstname, lastname, fathername, gender, course, address, city, state, pincode, emailid, password, dob, mobile_no);
   }
 }
 
@@ -88,22 +82,22 @@ function addDatatoTable() {
   gender = gender.toString();
 
 
-    //function to append new row to table
-    if (WriteMethod === 'Submit') {
-      writeToStorage(firstname, lastname, fathername, gender, course,address,city,state,pincode,emailid,password,dob,mobile_no);
-     }
+  //function to append new row to table
+  if (WriteMethod === 'Submit') {
+    writeToStorage(firstname, lastname, fathername, gender, course, address, city, state, pincode, emailid, password, dob, mobile_no);
+  }
 
 
-    //Clear form input fields
-    clearForm();
+  //Clear form input fields
+  clearForm();
 
 
-  } 
+}
 
-  //Appends a new row to the end of the table
+//Appends a new row to the end of the table
 
-function appendrowToTable(firstname,lastname, fathername,gender,course,address,city,state,pincode,emailid,password,dob,mobile_no ) {
-  var tableReference=$('.tableData tbody')[0];
+function appendrowToTable(firstname, lastname, fathername, gender, course, address, city, state, pincode, emailid, password, dob, mobile_no) {
+  var tableReference = $('.tableData tbody')[0];
   var rows = $('.tableData tbody tr');
   if (rows.length === 0) {
     rowcount = 0;
@@ -128,7 +122,6 @@ function appendrowToTable(firstname,lastname, fathername,gender,course,address,c
   var cell12 = row.insertCell(11);
   var cell13 = row.insertCell(12);
   var cell14 = row.insertCell(13);
-
 
 
   cell1.innerHTML = firstname;
@@ -170,7 +163,7 @@ function clearForm() {
 
 //Pushes a new object to the array of records in localstorage
 
-function writeToStorage(firstname,lastname, fathername,gender,course,address,city,state,pincode,emailid,password,dob,mobile_no) {
+function writeToStorage(firstname, lastname, fathername, gender, course, address, city, state, pincode, emailid, password, dob, mobile_no) {
   var currentArray = getLocalStorage()
   var objectToAdd = {
     _f_firstname: firstname,
@@ -189,12 +182,12 @@ function writeToStorage(firstname,lastname, fathername,gender,course,address,cit
   }
   currentArray.push(objectToAdd);
   setLocalStorage(JSON.stringify(currentArray));
-  appendrowToTable(firstname,lastname, fathername,gender,course,address,city,state,pincode,emailid,password,dob,mobile_no);
+  appendrowToTable(firstname, lastname, fathername, gender, course, address, city, state, pincode, emailid, password, dob, mobile_no);
 }
 
 //Updates a specific index of the array of objects in localstorage
 
-function updateStorage(index, firstname,lastname, fathername,gender,course,address,city,state,pincode,emailid,password,dob,mobile_no) {
+function updateStorage(index, firstname, lastname, fathername, gender, course, address, city, state, pincode, emailid, password, dob, mobile_no) {
   console.log(index)
   var currentArray = getLocalStorage()
   var editedObject = {
@@ -213,7 +206,7 @@ function updateStorage(index, firstname,lastname, fathername,gender,course,addre
     _f_mobile_no: mobile_no,
   };
 
-  var fetchedOriginalName = $('.tableData tbody').find('._row'+index+' .firstname')[0].innerText;
+  var fetchedOriginalName = $('.tableData tbody').find('._row' + index + ' .firstname')[0].innerText;
   var indexToReplace = 0;
   for (var i of currentArray) {
     if (i._f_firstname != fetchedOriginalName) {
@@ -226,27 +219,18 @@ function updateStorage(index, firstname,lastname, fathername,gender,course,addre
 
   currentArray[indexToReplace] = editedObject;
   setLocalStorage(JSON.stringify(currentArray));
-  updateTableRow(index, firstname,lastname, fathername,gender,course,address,city,state,pincode,emailid,password,dob,mobile_no);
+  updateTableRow(index, firstname, lastname, fathername, gender, course, address, city, state, pincode, emailid, password, dob, mobile_no);
 }
 
 
 //Get function for write method
-function getWriteMethod()
-{
+function getWriteMethod() {
   return $('.submit')[0].innerText;
 }
 //Set function for write method
-function setWriteMethod(method)
-{
+function setWriteMethod(method) {
   $('.submit')[0].innerText = method;
 }
-
-
-
-
-
-
-
 
 
 //this is for form validation
