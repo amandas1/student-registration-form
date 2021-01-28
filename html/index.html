@@ -8,7 +8,7 @@
   </head>
   <body>
     <div class="main">
-      <form name="StudenSignupForm">
+      <form name="StudentSignupForm">
         <div align="center">
           <div class="regform">
             <center><font size=4><b>Student Registration Form</b></font></center>
@@ -16,33 +16,33 @@
           <br>
           <ul>
             <li class="labels">First Name</li>
-            <li><input class="textinput" type=text name=firstnames id="firstname" size="30"></li>
+            <li><input class="textinput fetchForm" type=text name=firstname onblur="validatename()" id="firstname" size="30"></li>
           </ul>
           <br>
           <ul>
             <li class="labels" >
               Last Name
             </li>
-            <li><input class="textinput" type=text name=lastnames id="lastname" size="30"></li>
+            <li><input class="textinput fetchForm" type=text name=lastname onblur="validatelastname()" id="lastname" size="30"></li>
           </ul>
           <br>
           <ul>
             <li class="labels">Father Name</li>
-            <li><input class="textinput" type="text" name="full_father_name" id="fathername"
+            <li><input class="textinput fetchForm" type="text" name="fathername" onblur="validatefathername()" id="fathername"
               size="30"></li>
           </ul>
           <br>
           <ul>
             <li class="labels">Gender</li>
-            <li><input type="radio" name="gender" id="male" value="male" size="10">Male
-              <input type="radio" name="gender" id="female" value="Female" size="10">Female
+            <li><input type="radio" class="fetchForm" name="gender" id="male" value="male" size="10">Male
+              <input type="radio" class="fetchForm" name="gender" id="female" value="Female" size="10">Female
             </li>
           </ul>
           <br>
           <ul>
             <li class="labels">Course</li>
             <li>
-              <select class="textinput" style="padding:10px 60px;" id="course" name="Course">
+              <select class="textinput fetchForm" style="padding:10px 60px;" id="course" onblur="validatecourse()" name="course">
                 <option value="-1" selected>select..</option>
                 <option value="B.Tech">B.TECH</option>
                 <option value="MCA">MCA</option>
@@ -54,19 +54,19 @@
           <br>
           <ul>
             <li class="labels">Address</li>
-            <li><input class="textinput" type="text" name="personal_address"
+            <li><input class="textinput fetchForm" type="text" onblur="validateaddress()" name="address"
               id="address" size="30"></li>
           </ul>
           <br>
           <ul>
             <li class="labels">City</li>
-            <li><input class="textinput" type="text" name="City" id="city"size="30"></li>
+            <li><input class="textinput fetchForm" type="text" name="city" onblur="validatecity()" id="city"size="30"></li>
           </ul>
           <br>
           <ul>
             <li class="labels">State</li>
             <li>
-              <select class="textinput" style="padding:10px 0px;" Name="State" id="state">
+              <select class="textinput fetchForm" style="padding:10px 0px;" Name="state" onblur="validatestate()" id="state">
                 <option value="-1" selected>select..</option>
                 <option value="Andhra Pradesh">Andhra Pradesh</option>
                 <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
@@ -110,27 +110,27 @@
           <br>
           <ul>
             <li class="labels">Pin Code</li>
-            <li><input class="textinput" type="text" name="pin_code" id="pincode" size="30"></li>
+            <li><input class="textinput fetchForm" type="text" name="pincode" onblur="validatepincode()" id="pincode" size="30"></li>
           </ul>
           <br>
           <ul>
             <li class="labels">Student Email</li>
-            <li><input class="textinput" type="text" name="email_id" id="emailid" size="30"></li>
+            <li><input class="textinput fetchForm" type="text" name="emailid" id="emailid" onblur="validateemail()" size="30"></li>
           </ul>
           <br>
           <ul>
             <li class="labels">Password</li>
-            <li><input class="textinput" type="text" name="password" id="password" size="30"></li>
+            <li><input class="textinput fetchForm" type="text" name="password" id="password" onblur="validatepassword()" size="30"></li>
           </ul>
           <br>
           <ul>
             <li class="labels">Date of Birth</li>
-            <li><input class="textinput" type="date" name="date_of_birth" id="dob" size="30"></li>
+            <li><input class="textinput fetchForm" type="date" name="dob" id="dob" onblur="validatedob()" size="30"></li>
           </ul>
           <br>
           <ul>
             <li class="labels">Mobile Number</li>
-            <li><input class="textinput" type="text" name="mobilenumber" id="mobile_no" size="30"></li>
+            <li><input class="textinput fetchForm" type="text" name="mobile_no"  id="mobile_no" onblur="validatemobileNumber()" size="30"></li>
           </ul>
           <br>
           <ul>
@@ -168,6 +168,6 @@
         </tbody>
       </table>
   
-    <script type="text/javascript" src="../js/validateform.js"></script>
+    <script type="text/javascript" src="../js/script.js"></script>
   </body>
 </html>
