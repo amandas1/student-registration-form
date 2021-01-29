@@ -10,7 +10,7 @@
   body {
 	background-image: url(../image/bgimage.jpg);
 	background-position: center;
-	background-size: 1500px 1500px;
+	background-size: cover;
 	font-family: sans-serif;
 	margin-top: 40px;
 	overflow-x: hidden;

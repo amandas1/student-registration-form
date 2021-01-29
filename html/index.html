@@ -4,9 +4,11 @@
     <meta charset="utf-8">
     <title>Student Registration</title>
     <script src="../js/jquery.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="../css/style.css" rel="stylesheet">
   </head>
   <body>
+    <div class="container">
     <div class="main">
       <form name="StudentSignupForm">
         <div align="center">
@@ -15,34 +17,42 @@
           </div>
           <br>
           <ul>
+            <div class="form-group col-sm-5">
             <li class="labels">First Name</li>
-            <li><input class="textinput fetchForm" type=text name=firstname onblur="validatename()" id="firstname" size="30"></li>
+            <li><input class="form-control textinput fetchForm" type=text name=firstname onblur="validatename()" id="firstname" placeholder="First Name" size="30"></li>
+            </div>
           </ul>
           <br>
           <ul>
+            <div class="form-group col-sm-5">
             <li class="labels" >
               Last Name
             </li>
-            <li><input class="textinput fetchForm" type=text name=lastname onblur="validatelastname()" id="lastname" size="30"></li>
+            <li><input class="form-control textinput fetchForm" type=text name=lastname onblur="validatelastname()" id="lastname" placeholder="Last Name" size="30"></li>
+            </div>
           </ul>
           <br>
           <ul>
+            <div class="form-group col-sm-5">
             <li class="labels">Father Name</li>
-            <li><input class="textinput fetchForm" type="text" name="fathername" onblur="validatefathername()" id="fathername"
+            <li><input class="form-control textinput fetchForm" type="text" name="fathername" onblur="validatefathername()" placeholder="Father Name" id="fathername"
               size="30"></li>
+            </div>
           </ul>
           <br>
           <ul>
             <li class="labels">Gender</li>
             <li><input type="radio" class="fetchForm" name="gender" id="male" value="male" size="10">Male
-              <input type="radio" class="fetchForm" name="gender" id="female" value="Female" size="10">Female
+                <input type="radio" class="fetchForm" name="gender" id="female" value="Female" size="10">Female
             </li>
+
           </ul>
           <br>
           <ul>
+            <div class="form-group col-sm-5">
             <li class="labels">Course</li>
             <li>
-              <select class="textinput fetchForm" style="padding:10px 60px;" id="course" onblur="validatecourse()" name="course">
+              <select class="form-control-lg textinput fetchForm" style="padding:10px 60px;" id="course" onblur="validatecourse()" name="course">
                 <option value="-1" selected>select..</option>
                 <option value="B.Tech">B.TECH</option>
                 <option value="MCA">MCA</option>
@@ -50,23 +60,29 @@
                 <option value="BCA">BCA</option>
               </select>
             </li>
+           </div>
           </ul>
           <br>
           <ul>
+            <div class="form-group col-sm-5">
             <li class="labels">Address</li>
-            <li><input class="textinput fetchForm" type="text" onblur="validateaddress()" name="address"
+            <li><input class="form-control textinput fetchForm" type="text" onblur="validateaddress()" placeholder="Address" name="address"
               id="address" size="30"></li>
+            </div>
           </ul>
           <br>
           <ul>
+            <div class="form-group col-sm-5">
             <li class="labels">City</li>
-            <li><input class="textinput fetchForm" type="text" name="city" onblur="validatecity()" id="city"size="30"></li>
+            <li><input class="form-control textinput fetchForm" type="text" name="city" onblur="validatecity()" id="city" placeholder="City"size="30"></li>
+            </div>
           </ul>
           <br>
           <ul>
+            <div class="form-group col-sm-5">
             <li class="labels">State</li>
             <li>
-              <select class="textinput fetchForm" style="padding:10px 0px;" Name="state" onblur="validatestate()" id="state">
+              <select class="form-control-lg textinput fetchForm" style="padding:10px 0px;" Name="state" onblur="validatestate()" id="state">
                 <option value="-1" selected>select..</option>
                 <option value="Andhra Pradesh">Andhra Pradesh</option>
                 <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
@@ -106,46 +122,58 @@
                 <option value="West Bengal">West Bengal</option>
               </select>
             </li>
+          </div>
           </ul>
           <br>
           <ul>
+            <div class="form-group col-sm-5">
             <li class="labels">Pin Code</li>
-            <li><input class="textinput fetchForm" type="text" name="pincode" onblur="validatepincode()" id="pincode" size="30"></li>
+            <li><input class="form-control textinput fetchForm" type="text" name="pincode" onblur="validatepincode()" id="pincode" placeholder="Pin code" size="30"></li>
+            </div>
           </ul>
           <br>
           <ul>
+            <div class="form-group col-sm-5">
             <li class="labels">Student Email</li>
-            <li><input class="textinput fetchForm" type="text" name="emailid" id="emailid" onblur="validateemail()" size="30"></li>
+            <li><input class="form-control textinput fetchForm" type="text" name="emailid" id="emailid" onblur="validateemail()" placeholder="Email ID" size="30"></li>
+            </div>
           </ul>
           <br>
           <ul>
+            <div class="form-group col-sm-5">
             <li class="labels">Password</li>
-            <li><input class="textinput fetchForm" type="text" name="password" id="password" onblur="validatepassword()" size="30"></li>
+            <li><input class="form-control textinput fetchForm" type="text" name="password" id="password" onblur="validatepassword()" placeholder="Password" size="30"></li>
+            </div>
           </ul>
           <br>
           <ul>
+            <div class="form-group col-sm-5">
             <li class="labels">Date of Birth</li>
-            <li><input class="textinput fetchForm" type="date" name="dob" id="dob" onblur="validatedob()" size="30"></li>
+            <li><input class="form-control textinput fetchForm" type="date" name="dob" id="dob" onblur="validatedob()" size="30"></li>
+            </div>
           </ul>
           <br>
           <ul>
+            <div class="form-group col-sm-5">
             <li class="labels">Mobile Number</li>
-            <li><input class="textinput fetchForm" type="text" name="mobile_no"  id="mobile_no" onblur="validatemobileNumber()" size="30"></li>
+            <li><input class="form-control textinput fetchForm" type="text" name="mobile_no"  id="mobile_no" onblur="validatemobileNumber()" placeholder="Mobile Number" size="30"></li>
+            </div>
           </ul>
           <br>
           <ul>
             <br>
-            <li><input type="reset" style="background-color: red;padding:10px 20px; border-radius:8px; color:white;"></li>
+            <li><input type="reset" class="btn btn-danger btn-lg"></li>
             <br><br>
-            <li><button style="background-color:#19e320;padding:10px 20px; border-radius:8px; color:white;" class="submit" onclick="addDatatoTable()">Submit</button></li>
+            <li><button  class="btn btn-success btn-lg submit" onclick="addDatatoTable()">Submit</button></li>
           </ul>
           <br><br>
         </div>
       </form>
     </div>
+  </div>
     
-      <table class="tableData" id="studentData">
-        <thead>
+      <table class="table tableData" id="studentData">
+        <thead class="thead-dark">
           <tr>
             <th class="column tablehead firstname">First Name</th>
             <th class="column tablehead lastname">Last Name</th>
@@ -167,7 +195,11 @@
         <tbody>
         </tbody>
       </table>
+      
   
     <script type="text/javascript" src="../js/script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   </body>
 </html>
