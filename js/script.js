@@ -16,6 +16,8 @@ let defaultData = '[{"_f_firstname":"Joe","_f_lastname":"eren","_f_fathername":"
 function onLoadingPage() {
   setLocalStorage(defaultData);
   populatetoTable(getLocalStorage());
+  studentData();
+  
 }
 var Data = (function () {
   var rowIdtoEdit = -1;
@@ -72,6 +74,33 @@ function populatetoTable(inputData) {
     } = i;
     appendrowToTable(firstname, lastname, fathername, gender, course, address, city, state, pincode, emailid, password, dob, mobile_no);
   }
+}
+
+//ajax call to load student data in the table from student.json file
+function studentData() {
+  $(document).ready(function(){
+    $.getJSON("student.json", function(data){
+      var student_data = '';
+      $.each(data, function(key, value){
+        student_data += '<tr>';
+        student_data += '<td>'+value.firstname+'</td>';
+        student_data += '<td>'+value.lastname+'</td>';
+        student_data += '<td>'+value.fathername+'</td>';
+        student_data += '<td>'+value.gender+'</td>';
+        student_data += '<td>'+value.course+'</td>';
+        student_data += '<td>'+value.address+'</td>';
+        student_data += '<td>'+value.city+'</td>';
+        student_data += '<td>'+value.state+'</td>';
+        student_data += '<td>'+value.pincode+'</td>';
+        student_data += '<td>'+value.emailid+'</td>';
+        student_data += '<td>'+value.password+'</td>';
+        student_data += '<td>'+value.dob+'</td>';
+        student_data += '<td>'+value.mobile_no+'</td>';
+        student_data += '</tr>';
+      });
+      $('#studentData').append(student_data);
+    });
+  });
 }
 
 
