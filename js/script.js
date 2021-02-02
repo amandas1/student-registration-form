@@ -1,30 +1,18 @@
-//Get value for local storage array
+//reveal module pattern
+var Data = (function () {
+  let rowIdtoEdit = -1;
+  onLoadingPage();
 
-function getLocalStorage() {
-  return JSON.parse(localStorage.getItem('storage'));
-}
+  let defaultData = '[{"_f_firstname":"Joe","_f_lastname":"eren","_f_fathername":"donal eren","_f_gender":"male","_f_course":"MCA","_f_address":"street - 7","_f_city":"bbsr","_f_state":"odisha","_f_pincode":"769003","_f_emailid":"joe@gmail.com","_f_password":"dadada","_f_dob":"2021-10-22","_f_mobile_no":"7978659331"}]';
 
-//Set value function for write method
+  //It executes on loading of the page, populate default data in local storage and populate the table
 
-function setLocalStorage(newItem) {
-  localStorage.setItem('storage', newItem);
-}
-
-let defaultData = '[{"_f_firstname":"Joe","_f_lastname":"eren","_f_fathername":"donal eren","_f_gender":"male","_f_course":"MCA","_f_address":"street - 7","_f_city":"bbsr","_f_state":"odisha","_f_pincode":"769003","_f_emailid":"joe@gmail.com","_f_password":"dadada","_f_dob":"2021-10-22","_f_mobile_no":"7978659331"}]';
-
-//It executes on loading of the page, populate default data in local storage and populate the table
 function onLoadingPage() {
   setLocalStorage(defaultData);
   populatetoTable(getLocalStorage());
   studentData();
   
 }
-var Data = (function () {
-  var rowIdtoEdit = -1;
-  onLoadingPage();
-
-
-
   //Sets the row id to edit
 function setrowIdtoEdit(value)
 {
@@ -43,16 +31,6 @@ function getRowByIndex(index)
 {
   return $('._row'+index)[0];
 }
-
-//Returns an object with references to getters and setters
-return {
-  setrowIdtoEdit: setrowIdtoEdit,
-  getrowIdtoEdit: getrowIdtoEdit,
-  getRowByIndex: getRowByIndex
-}
-
-
-})();
 
 //Populate default data to the table
 function populatetoTable(inputData) {
@@ -102,8 +80,6 @@ function studentData() {
     });
   });
 }
-
-
 //Function that makes changes to the table when clicking on submit
 function addDatatoTable() {
 
@@ -431,7 +407,17 @@ function getWriteMethod() {
 function setWriteMethod(method) {
   $('.submit')[0].innerText = method;
 }
+//Get value for local storage array
 
+function getLocalStorage() {
+  return JSON.parse(localStorage.getItem('storage'));
+}
+
+//Set value function for write method
+
+function setLocalStorage(newItem) {
+  localStorage.setItem('storage', newItem);
+}
 
 //function to validate  first name
 function validatename() {
@@ -569,3 +555,37 @@ function validatemobileNumber() {
   return false;
   }
 }
+
+//Returns an object with references to getters and setters
+return {
+  setrowIdtoEdit: setrowIdtoEdit,
+  getrowIdtoEdit: getrowIdtoEdit,
+  getRowByIndex: getRowByIndex,
+  addDatatoTable: addDatatoTable,
+  appendrowToTable: appendrowToTable,
+  clearForm: clearForm,
+  writeToStorage: writeToStorage,
+  updateStorage: updateStorage,
+  sendDataToForm: sendDataToForm,
+  updateTableRow: updateTableRow,
+  deleteFromStorage: deleteFromStorage,
+  deletefromTable: deletefromTable,
+  getWriteMethod: getWriteMethod,
+  setWriteMethod: setWriteMethod,
+  getLocalStorage: getLocalStorage,
+  setLocalStorage: setLocalStorage,
+  validatename: validatename,
+  validatelastname: validatelastname,
+  validatefathername: validatefathername,
+  validategender: validategender,
+  validatecourse: validatecourse,
+  validateaddress: validateaddress,
+  validatecity: validatecity,
+  validatestate: validatestate,
+  validatepincode: validatepincode,
+  validateemail: validateemail,
+  validatepassword: validatepassword,
+  validatedob: validatedob,
+  validatemobileNumber: validatemobileNumber
+}
+})();
