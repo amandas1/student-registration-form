@@ -1,6 +1,7 @@
-//reveal module pattern
+
+//reveal pattern module to restrict direct access
 var Data = (function () {
-  let rowIdtoEdit = -1;
+  var rowIdtoEdit = -1;
   onLoadingPage();
 
   let defaultData = '[{"_f_firstname":"Joe","_f_lastname":"eren","_f_fathername":"donal eren","_f_gender":"male","_f_course":"MCA","_f_address":"street - 7","_f_city":"bbsr","_f_state":"odisha","_f_pincode":"769003","_f_emailid":"joe@gmail.com","_f_password":"dadada","_f_dob":"2021-10-22","_f_mobile_no":"7978659331"}]';
@@ -13,6 +14,8 @@ function onLoadingPage() {
   studentData();
   
 }
+
+
   //Sets the row id to edit
 function setrowIdtoEdit(value)
 {
@@ -80,6 +83,7 @@ function studentData() {
     });
   });
 }
+
 //Function that makes changes to the table when clicking on submit
 function addDatatoTable() {
 
