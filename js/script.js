@@ -19,6 +19,8 @@ function onLoadingPage() {
   studentData();
   
 }
+
+//reveal pattern module to restrict direct access
 var Data = (function () {
   var rowIdtoEdit = -1;
   onLoadingPage();
