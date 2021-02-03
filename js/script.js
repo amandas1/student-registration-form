@@ -1,4 +1,3 @@
-
 //reveal pattern module to restrict direct access
 var Data = (function () {
   let rowIdtoEdit = -1;
@@ -8,37 +7,217 @@ var Data = (function () {
 
   //It executes on loading of the page, populate default data in local storage and populate the table
 
-function onLoadingPage() {
-  setLocalStorage(defaultData);
-  populatetoTable(getLocalStorage());
-  studentData();
-  
-}
+  function onLoadingPage() {
+    setLocalStorage(defaultData);
+    populatetoTable(getLocalStorage());
+    studentData();
 
+  }
 
   //Sets the row id to edit
-function setrowIdtoEdit(value)
-{
-  rowIdtoEdit=value;
-}
+  function setrowIdtoEdit(value) {
+    rowIdtoEdit = value;
+  }
 
-//Returns the row id that is currently being edited
+  //Returns the row id that is currently being edited
 
-function getrowIdtoEdit()
-{
-  return rowIdtoEdit;
-}
+  function getrowIdtoEdit() {
+    return rowIdtoEdit;
+  }
 
-//returns a row of the table from  its class name, which is inorder determined by index
-function getRowByIndex(index)
-{
-  return $('._row'+index)[0];
-}
+  //returns a row of the table from  its class name, which is inorder determined by index
+  function getRowByIndex(index) {
+    return $('._row' + index)[0];
+  }
 
-//Populate default data to the table
-function populatetoTable(inputData) {
-  for (var i of inputData) {
-    let {
+  //Populate default data to the table
+  function populatetoTable(inputData) {
+    for (var i of inputData) {
+      let {
+        _f_firstname: firstname,
+        _f_lastname: lastname,
+        _f_fathername: fathername,
+        _f_gender: gender,
+        _f_course: course,
+        _f_address: address,
+        _f_city: city,
+        _f_state: state,
+        _f_pincode: pincode,
+        _f_emailid: emailid,
+        _f_password: password,
+        _f_dob: dob,
+        _f_mobile_no: mobile_no,
+      } = i;
+      appendrowToTable(firstname, lastname, fathername, gender, course, address, city, state, pincode, emailid, password, dob, mobile_no);
+    }
+  }
+
+  //ajax call to load student data in the table from student.json file
+  function studentData() {
+    $(document).ready(function () {
+      $.getJSON("student.json", function (data) {
+        var student_data = '';
+        $.each(data, function (key, value) {
+          student_data += '<tr>';
+          student_data += '<td>' + value.firstname + '</td>';
+          student_data += '<td>' + value.lastname + '</td>';
+          student_data += '<td>' + value.fathername + '</td>';
+          student_data += '<td>' + value.gender + '</td>';
+          student_data += '<td>' + value.course + '</td>';
+          student_data += '<td>' + value.address + '</td>';
+          student_data += '<td>' + value.city + '</td>';
+          student_data += '<td>' + value.state + '</td>';
+          student_data += '<td>' + value.pincode + '</td>';
+          student_data += '<td>' + value.emailid + '</td>';
+          student_data += '<td>' + value.password + '</td>';
+          student_data += '<td>' + value.dob + '</td>';
+          student_data += '<td>' + value.mobile_no + '</td>';
+          student_data += '</tr>';
+        });
+        $('#studentData').append(student_data);
+      });
+    });
+  }
+
+  //Function that makes changes to the table when clicking on submit
+  function addDatatoTable() {
+
+    event.preventDefault();
+
+    var WriteMethod = getWriteMethod();
+
+    //Returns reference to DOM nodes with the specified id or name 
+    var firstname = $('#firstname')[0].value;
+    var lastname = $('#lastname')[0].value;
+    var fathername = $('#fathername')[0].value;
+    var genderList = $("input[name='gender']");
+    var course = $('#course')[0].value;
+    var address = $('#address')[0].value;
+    var city = $('#city')[0].value;
+    var state = $('#state')[0].value;
+    var pincode = $('#pincode')[0].value;
+    var emailid = $('#emailid')[0].value;
+    var password = $('#password')[0].value;
+    var dob = $('#dob')[0].value;
+    var mobile_no = $('#mobile_no')[0].value;
+
+    var gender = [];
+
+    //loop through all radio lists to determine the selected one
+    for (var i of genderList) {
+      if (i.checked === true) {
+        gender.push(i.value)
+      }
+    }
+
+
+    //converts the list of selected radios to strings
+    gender = gender.toString();
+
+
+    //function to append new row to table
+    if (WriteMethod === 'Submit') {
+      writeToStorage(firstname, lastname, fathername, gender, course, address, city, state, pincode, emailid, password, dob, mobile_no);
+    } else {
+      updateStorage(Data.getrowIdtoEdit(), firstname, lastname, fathername, gender, course, address, city, state, pincode, emailid, password, dob, mobile_no)
+      Data.setrowIdtoEdit(-1);
+      setWriteMethod("Submit");
+    }
+
+
+    //Clear form input fields
+    clearForm();
+
+
+  }
+
+  //Appends a new row to the end of the table
+
+  function appendrowToTable(firstname, lastname, fathername, gender, course, address, city, state, pincode, emailid, password, dob, mobile_no) {
+    var tableReference = $('.tableData tbody')[0];
+    var rows = $('.tableData tbody tr');
+    if (rows.length === 0) {
+      rowcount = 0;
+    } else {
+      rowcount = parseInt([].slice.call(rows).pop().classList[0].replace(/\D/g, ''));
+    }
+
+    var row = tableReference.insertRow(-1);
+    row.classList.add("_row" + (rowcount + 1));
+
+    var cell1 = row.insertCell(0);
+    var cell2 = row.insertCell(1);
+    var cell3 = row.insertCell(2);
+    var cell4 = row.insertCell(3);
+    var cell5 = row.insertCell(4);
+    var cell6 = row.insertCell(5);
+    var cell7 = row.insertCell(6);
+    var cell8 = row.insertCell(7);
+    var cell9 = row.insertCell(8);
+    var cell10 = row.insertCell(9);
+    var cell11 = row.insertCell(10);
+    var cell12 = row.insertCell(11);
+    var cell13 = row.insertCell(12);
+    var cell14 = row.insertCell(13);
+
+    cell1.classList.add('firstname');
+    cell2.classList.add('lastname');
+    cell3.classList.add('fathername');
+    cell4.classList.add('gender');
+    cell5.classList.add('course');
+    cell6.classList.add('address');
+    cell7.classList.add('city');
+    cell8.classList.add('state');
+    cell9.classList.add('pincode');
+    cell10.classList.add('emailid');
+    cell11.classList.add('password');
+    cell12.classList.add('dob');
+    cell13.classList.add('mobile_no');
+    cell14.classList.add('changes');
+
+
+    cell1.innerHTML = firstname;
+    cell2.innerHTML = lastname;
+    cell3.innerHTML = fathername;
+    cell4.innerHTML = gender;
+    cell5.innerHTML = course;
+    cell6.innerHTML = address;
+    cell7.innerHTML = city;
+    cell8.innerHTML = state;
+    cell9.innerHTML = pincode;
+    cell10.innerHTML = emailid;
+    cell11.innerHTML = password;
+    cell12.innerHTML = dob;
+    cell13.innerHTML = mobile_no;
+    cell14.innerHTML = '<label onclick="sendDataToForm(' + (rowcount + 1) + ')">Edit</label><br><label onclick="deleteFromStorage(' + (rowcount + 1) + ')">Delete</label';
+  }
+
+  //Clears the form fields after submitting the data 
+  function clearForm() {
+    $('#firstname')[0].value = "";
+    $('#lastname')[0].value = "";
+    $('#fathername')[0].value = "";
+    $('#course')[0].value = "";
+    $('#address')[0].value = "";
+    $('#city')[0].value = "";
+    $('#state')[0].value = "";
+    $('#pincode')[0].value = "";
+    $('#emailid')[0].value = "";
+    $('#password')[0].value = "";
+    $('#dob')[0].value = "";
+    $('#mobile_no')[0].value = "";
+
+
+    for (var i of $("input[name='gender']")) {
+      i.checked = false;
+    }
+  }
+
+  //Pushes a new object to the array of records in localstorage
+
+  function writeToStorage(firstname, lastname, fathername, gender, course, address, city, state, pincode, emailid, password, dob, mobile_no) {
+    var currentArray = getLocalStorage()
+    var objectToAdd = {
       _f_firstname: firstname,
       _f_lastname: lastname,
       _f_fathername: fathername,
@@ -52,544 +231,326 @@ function populatetoTable(inputData) {
       _f_password: password,
       _f_dob: dob,
       _f_mobile_no: mobile_no,
-    } = i;
+    }
+    currentArray.push(objectToAdd);
+    setLocalStorage(JSON.stringify(currentArray));
     appendrowToTable(firstname, lastname, fathername, gender, course, address, city, state, pincode, emailid, password, dob, mobile_no);
   }
-}
 
-//ajax call to load student data in the table from student.json file
-function studentData() {
-  $(document).ready(function(){
-    $.getJSON("student.json", function(data){
-      var student_data = '';
-      $.each(data, function(key, value){
-        student_data += '<tr>';
-        student_data += '<td>'+value.firstname+'</td>';
-        student_data += '<td>'+value.lastname+'</td>';
-        student_data += '<td>'+value.fathername+'</td>';
-        student_data += '<td>'+value.gender+'</td>';
-        student_data += '<td>'+value.course+'</td>';
-        student_data += '<td>'+value.address+'</td>';
-        student_data += '<td>'+value.city+'</td>';
-        student_data += '<td>'+value.state+'</td>';
-        student_data += '<td>'+value.pincode+'</td>';
-        student_data += '<td>'+value.emailid+'</td>';
-        student_data += '<td>'+value.password+'</td>';
-        student_data += '<td>'+value.dob+'</td>';
-        student_data += '<td>'+value.mobile_no+'</td>';
-        student_data += '</tr>';
-      });
-      $('#studentData').append(student_data);
-    });
-  });
-}
+  //Updates a specific index of the array of objects in localstorage
 
-//Function that makes changes to the table when clicking on submit
-function addDatatoTable() {
+  function updateStorage(index, firstname, lastname, fathername, gender, course, address, city, state, pincode, emailid, password, dob, mobile_no) {
+    console.log(index)
+    var currentArray = getLocalStorage()
+    var editedObject = {
+      _f_firstname: firstname,
+      _f_lastname: lastname,
+      _f_fathername: fathername,
+      _f_gender: gender,
+      _f_course: course,
+      _f_address: address,
+      _f_city: city,
+      _f_state: state,
+      _f_pincode: pincode,
+      _f_emailid: emailid,
+      _f_password: password,
+      _f_dob: dob,
+      _f_mobile_no: mobile_no,
+    };
 
-  event.preventDefault();
+    var fetchedName = $('.tableData tbody').find('._row' + index + ' .firstname')[0].innerText;
+    var replaceIndex = 0;
+    for (var i of currentArray) {
+      if (i._f_firstname != fetchedName) {
+        replaceIndex = replaceIndex + 1;
+      } else {
+        break;
+      }
+    }
 
-  var WriteMethod = getWriteMethod();
 
-  //Returns reference to DOM nodes with the specified id or name 
-  var firstname = $('#firstname')[0].value;
-  var lastname = $('#lastname')[0].value;
-  var fathername = $('#fathername')[0].value;
-  var genderList = $("input[name='gender']");
-  var course = $('#course')[0].value;
-  var address = $('#address')[0].value;
-  var city = $('#city')[0].value;
-  var state = $('#state')[0].value;
-  var pincode = $('#pincode')[0].value;
-  var emailid = $('#emailid')[0].value;
-  var password = $('#password')[0].value;
-  var dob = $('#dob')[0].value;
-  var mobile_no = $('#mobile_no')[0].value;
+    currentArray[replaceIndex] = editedObject;
+    setLocalStorage(JSON.stringify(currentArray));
+    updateTableRow(index, firstname, lastname, fathername, gender, course, address, city, state, pincode, emailid, password, dob, mobile_no);
+  }
 
-  var gender = [];
+  //Sends data from table to form from the row's class name by help of index and fetching their inner texts
+  function sendDataToForm(index) {
 
-  //loop through all radio lists to determine the selected one
-  for (var i of genderList) {
-    if (i.checked === true) {
-      gender.push(i.value)
+    var findObjectName = $('.tableData tbody').find('._row' + index + ' .firstname')[0].innerText;
+
+    var currentArray = getLocalStorage()
+    var sendObjectToForm = currentArray.filter(e => {
+      if (e != null) {
+        return e._f_firstname === findObjectName;
+      }
+    })[0];
+
+    var formFields = $('.fetchForm');
+
+    for (let i of formFields) {
+      if (i.name === "firstname") {
+        i.value = sendObjectToForm._f_firstname;
+      } else if (i.name === "lastname") {
+        i.value = sendObjectToForm._f_lastname;
+      } else if (i.name === "fathername") {
+        i.value = sendObjectToForm._f_fathername;
+      } else if (i.name === "gender") {
+        i.checked = i.value === sendObjectToForm._f_gender;
+      }
+
+      if (i.name === "course") {
+        i.value = sendObjectToForm._f_course;
+      } else if (i.name === "address") {
+        i.value = sendObjectToForm._f_address;
+      } else if (i.name === "city") {
+        i.value = sendObjectToForm._f_city;
+      }
+
+      if (i.name === "state") {
+        i.value = sendObjectToForm._f_state;
+      } else if (i.name === "pincode") {
+        i.value = sendObjectToForm._f_pincode;
+      } else if (i.name === "emailid") {
+        i.value = sendObjectToForm._f_emailid;
+      }
+      if (i.name === "password") {
+        i.value = sendObjectToForm._f_password;
+      } else if (i.name === "dob") {
+        i.value = sendObjectToForm._f_dob;
+      } else if (i.name === "mobile_no") {
+        i.value = sendObjectToForm._f_mobile_no;
+      }
+
+    }
+
+    setWriteMethod("Update");
+    Data.setrowIdtoEdit(index);
+  }
+
+  //Updates the cells of a table row by identifying that row based on index
+
+  function updateTableRow(index, firstname, lastname, fathername, gender, course, address, city, state, pincode, emailid, password, dob, mobile_no) {
+    var cells = $('.tableData tbody').find('._row' + index + ' td');
+
+    for (let i = 1; i < arguments.length; i++) {
+      cells[i - 1].innerText = arguments[i];
     }
   }
 
+  //Deletes an object from the local storage based on an index
 
-  //converts the list of selected radios to strings
-  gender = gender.toString();
+  function deleteFromStorage(index) {
 
+    var findObjectName = $('.tableData tbody').find('._row' + index + ' .firstname')[0].innerText;
 
-  //function to append new row to table
-  if (WriteMethod === 'Submit') {
-    writeToStorage(firstname, lastname, fathername, gender, course, address, city, state, pincode, emailid, password, dob, mobile_no);
-  } else {
-    updateStorage(Data.getrowIdtoEdit(), firstname, lastname, fathername, gender, course,address,city,state,pincode,emailid,password,dob,mobile_no)
-    Data.setrowIdtoEdit(-1);
-    setWriteMethod("Submit");
- }
+    if (index == Data.getrowIdtoEdit()) {
+      setWriteMethod("Submit");
+    }
 
+    var currentArray = getLocalStorage()
+    var objectToDelete = currentArray.filter(e => e._f_firstname === findObjectName)[0];
+    currentArray = currentArray.filter(each => each !== objectToDelete);
+    setLocalStorage(JSON.stringify(currentArray));
 
-  //Clear form input fields
-  clearForm();
-
-
-}
-
-//Appends a new row to the end of the table
-
-function appendrowToTable(firstname, lastname, fathername, gender, course, address, city, state, pincode, emailid, password, dob, mobile_no) {
-  var tableReference = $('.tableData tbody')[0];
-  var rows = $('.tableData tbody tr');
-  if (rows.length === 0) {
-    rowcount = 0;
-  } else {
-    rowcount = parseInt([].slice.call(rows).pop().classList[0].replace(/\D/g, ''));
+    deletefromTable(index);
   }
 
-  var row = tableReference.insertRow(-1);
-  row.classList.add("_row" + (rowcount + 1));
+  //Deletes a row from the table
 
-  var cell1 = row.insertCell(0);
-  var cell2 = row.insertCell(1);
-  var cell3 = row.insertCell(2);
-  var cell4 = row.insertCell(3);
-  var cell5 = row.insertCell(4);
-  var cell6 = row.insertCell(5);
-  var cell7 = row.insertCell(6);
-  var cell8 = row.insertCell(7);
-  var cell9 = row.insertCell(8);
-  var cell10 = row.insertCell(9);
-  var cell11 = row.insertCell(10);
-  var cell12 = row.insertCell(11);
-  var cell13 = row.insertCell(12);
-  var cell14 = row.insertCell(13);
-
-  cell1.classList.add('firstname');
-  cell2.classList.add('lastname');
-  cell3.classList.add('fathername');
-  cell4.classList.add('gender');
-  cell5.classList.add('course');
-  cell6.classList.add('address');
-  cell7.classList.add('city');
-  cell8.classList.add('state');
-  cell9.classList.add('pincode');
-  cell10.classList.add('emailid');
-  cell11.classList.add('password');
-  cell12.classList.add('dob');
-  cell13.classList.add('mobile_no');
-  cell14.classList.add('changes');
-
-
-
-  cell1.innerHTML = firstname;
-  cell2.innerHTML = lastname;
-  cell3.innerHTML = fathername;
-  cell4.innerHTML = gender;
-  cell5.innerHTML = course;
-  cell6.innerHTML = address;
-  cell7.innerHTML = city;
-  cell8.innerHTML = state;
-  cell9.innerHTML = pincode;
-  cell10.innerHTML = emailid;
-  cell11.innerHTML = password;
-  cell12.innerHTML = dob;
-  cell13.innerHTML = mobile_no;
-  cell14.innerHTML = '<label onclick="sendDataToForm(' + (rowcount + 1) + ')">Edit</label><br><label onclick="deleteFromStorage(' + (rowcount + 1) + ')">Delete</label';
-}
-
-//Clears the form fields after submitting the data 
-function clearForm() {
-  $('#firstname')[0].value = "";
-  $('#lastname')[0].value = "";
-  $('#fathername')[0].value = "";
-  $('#course')[0].value = "";
-  $('#address')[0].value = "";
-  $('#city')[0].value = "";
-  $('#state')[0].value = "";
-  $('#pincode')[0].value = "";
-  $('#emailid')[0].value = "";
-  $('#password')[0].value = "";
-  $('#dob')[0].value = "";
-  $('#mobile_no')[0].value = "";
-
-
-  for (var i of $("input[name='gender']")) {
-    i.checked = false;
+  function deletefromTable(index) {
+    var fetchedRow = $('.tableData tbody').find('._row' + index)[0];
+    fetchedRow.remove();
   }
-}
 
-//Pushes a new object to the array of records in localstorage
 
-function writeToStorage(firstname, lastname, fathername, gender, course, address, city, state, pincode, emailid, password, dob, mobile_no) {
-  var currentArray = getLocalStorage()
-  var objectToAdd = {
-    _f_firstname: firstname,
-    _f_lastname: lastname,
-    _f_fathername: fathername,
-    _f_gender: gender,
-    _f_course: course,
-    _f_address: address,
-    _f_city: city,
-    _f_state: state,
-    _f_pincode: pincode,
-    _f_emailid: emailid,
-    _f_password: password,
-    _f_dob: dob,
-    _f_mobile_no: mobile_no,
+  //Get function for write method
+  function getWriteMethod() {
+    return $('.submit')[0].innerText;
   }
-  currentArray.push(objectToAdd);
-  setLocalStorage(JSON.stringify(currentArray));
-  appendrowToTable(firstname, lastname, fathername, gender, course, address, city, state, pincode, emailid, password, dob, mobile_no);
-}
+  //Set function for write method
+  function setWriteMethod(method) {
+    $('.submit')[0].innerText = method;
+  }
+  //Get value for local storage array
 
-//Updates a specific index of the array of objects in localstorage
+  function getLocalStorage() {
+    return JSON.parse(localStorage.getItem('storage'));
+  }
 
-function updateStorage(index, firstname, lastname, fathername, gender, course, address, city, state, pincode, emailid, password, dob, mobile_no) {
-  console.log(index)
-  var currentArray = getLocalStorage()
-  var editedObject = {
-    _f_firstname: firstname,
-    _f_lastname: lastname,
-    _f_fathername: fathername,
-    _f_gender: gender,
-    _f_course: course,
-    _f_address: address,
-    _f_city: city,
-    _f_state: state,
-    _f_pincode: pincode,
-    _f_emailid: emailid,
-    _f_password: password,
-    _f_dob: dob,
-    _f_mobile_no: mobile_no,
-  };
+  //Set value function for write method
 
-  var fetchedName = $('.tableData tbody').find('._row' + index + ' .firstname')[0].innerText;
-  var replaceIndex = 0;
-  for (var i of currentArray) {
-    if (i._f_firstname != fetchedName) {
-      replaceIndex = replaceIndex + 1;
-    } else {
-      break;
+  function setLocalStorage(newItem) {
+    localStorage.setItem('storage', newItem);
+  }
+
+  //function to validate  first name
+  function validatename() {
+    let form = document.StudentSignupForm;
+    if (form.firstname.value == "") {
+      alert("Enter your First Name!");
+      form.firstname.focus();
+      return;
     }
   }
 
-
-  currentArray[replaceIndex] = editedObject;
-  setLocalStorage(JSON.stringify(currentArray));
-  updateTableRow(index, firstname, lastname, fathername, gender, course, address, city, state, pincode, emailid, password, dob, mobile_no);
-}
-
-//Sends data from table to form from the row's class name by help of index and fetching their inner texts
-function sendDataToForm(index) {
-
-  var findObjectName = $('.tableData tbody').find('._row'+index+' .firstname')[0].innerText;
-
-  var currentArray = getLocalStorage()
-  var sendObjectToForm = currentArray.filter(e => {
-    if (e != null) {
-      return e._f_firstname === findObjectName;
+  //function to validate last name
+  function validatelastname() {
+    let form = document.StudentSignupForm;
+    if (form.lastname.value == "") {
+      alert("Enter Your Last Name!");
+      form.lastname.focus();
+      return;
     }
-  })[0];
+  }
 
-  var formFields=$('.fetchForm');
-
-  for(let i of formFields)
-  {
-    if(i.name==="firstname")
-    {
-      i.value=sendObjectToForm._f_firstname;
+  //function to validate father name
+  function validatefathername() {
+    let form = document.StudentSignupForm;
+    if (form.fathername.value == "") {
+      alert("Enter Your Father Name!");
+      form.fathername.focus();
+      return;
     }
+  }
 
-    else if(i.name==="lastname")
-    {
-      i.value=sendObjectToForm._f_lastname;
+  //function to validate gender
+  function validategender() {
+    let form = document.StudentSignupForm;
+    if ((StudenSignupForm.gender[0].checked == false) && (StudenSignupForm.gender[1].checked == false)) {
+      alert("Choose Your Gender: Male or Female");
+      form.gender.focus();
+      return;
     }
+  }
 
-    else if(i.name==="fathername")
-    {
-      i.value=sendObjectToForm._f_fathername;
+  //function to validate course
+  function validatecourse() {
+    let form = document.StudentSignupForm;
+    if (form.course.value == "") {
+      alert("Enter the Course Name!");
+      form.course.focus();
+      return;
     }
+  }
 
-    else if(i.name==="gender")
-    {
-      i.checked= i.value === sendObjectToForm._f_gender;
+  //function to validate address
+  function validateaddress() {
+    let form = document.StudentSignupForm;
+    if (form.address.value == "") {
+      alert("Enter your address!");
+      form.address.focus();
+      return;
     }
+  }
 
-    if(i.name==="course")
-    {
-      i.value=sendObjectToForm._f_course;
+  //function to validate city
+  function validatecity() {
+    let form = document.StudentSignupForm;
+    if (form.city.value == "") {
+      alert("Enter your city name!");
+      form.city.focus();
+      return;
     }
+  }
 
-    else if(i.name==="address")
-    {
-      i.value=sendObjectToForm._f_address;
+  //function to validate state
+  function validatestate() {
+    let form = document.StudentSignupForm;
+    if (form.state.value == "") {
+      alert("Enter your state!");
+      form.state.focus();
+      return;
     }
+  }
 
-    else if(i.name==="city")
-    {
-      i.value=sendObjectToForm._f_city;
+  //function to validate pincode
+  function validatepincode() {
+    let form = document.StudentSignupForm;
+    if (form.pincode.value == "" ||
+      isNaN(form.pincode.value) ||
+      form.pincode.value.length != 6) {
+      alert("Enter your pincode in format ######.");
+      form.pincode.focus();
+      return;
     }
+  }
 
-    if(i.name==="state")
-    {
-      i.value=sendObjectToForm._f_state;
+  //function to validate email
+  function validateemail() {
+    let form = document.StudentSignupForm;
+    var email = form.emailid.value;
+    atpos = email.indexOf("@");
+    dotpos = email.lastIndexOf(".");
+    if (email == "" || atpos < 1 || (dotpos - atpos < 2)) {
+      alert("Enter your correct email ID")
+      form.emailid.focus();
+      return;
     }
+  }
 
-    else if(i.name==="pincode")
-    {
-      i.value=sendObjectToForm._f_pincode;
+  //function to validate password
+  function validatepassword() {
+    let form = document.StudentSignupForm;
+    if (form.password.value == "") {
+      alert("Enter Your Password!");
+      form.password.focus();
+      return false;
     }
+  }
 
-    else if(i.name==="emailid")
-    {
-      i.value=sendObjectToForm._f_emailid;
+  //function to validate date of birth
+  function validatedob() {
+    let form = document.StudentSignupForm;
+    if (form.dob.value == "") {
+      alert("Enter your Date of birth!");
+      form.dob.focus();
+      return false;
     }
-    if(i.name==="password")
-    {
-      i.value=sendObjectToForm._f_password;
+  }
+
+  //function to validate mobile number
+  function validatemobileNumber() {
+    let form = document.StudentSignupForm;
+    if (form.mobile_no.value == "" ||
+      isNaN(form.mobile_no.value) ||
+      form.mobile_no.value.length != 10) {
+      alert("Enter your Mobile No. in the format 123.");
+      form.mobile_no.focus();
+      return false;
     }
-
-    else if(i.name==="dob")
-    {
-      i.value=sendObjectToForm._f_dob;
-    }
-
-    else if(i.name==="mobile_no")
-    {
-      i.value=sendObjectToForm._f_mobile_no;
-    }
-
   }
 
-  setWriteMethod("Update");
-  Data.setrowIdtoEdit(index);
-}
-
-//Updates the cells of a table row by identifying that row based on index
-
-function updateTableRow(index, firstname, lastname, fathername, gender, course, address, city, state, pincode, emailid, password, dob, mobile_no) {
-  var cells=$('.tableData tbody').find('._row'+index+' td');
-
-  for(let i=1; i<arguments.length; i++)
-  {
-    cells[i-1].innerText=arguments[i];
+  //Returns an object with references to getters and setters
+  return {
+    setrowIdtoEdit: setrowIdtoEdit,
+    getrowIdtoEdit: getrowIdtoEdit,
+    getRowByIndex: getRowByIndex,
+    addDatatoTable: addDatatoTable,
+    appendrowToTable: appendrowToTable,
+    clearForm: clearForm,
+    writeToStorage: writeToStorage,
+    updateStorage: updateStorage,
+    sendDataToForm: sendDataToForm,
+    updateTableRow: updateTableRow,
+    deleteFromStorage: deleteFromStorage,
+    deletefromTable: deletefromTable,
+    getWriteMethod: getWriteMethod,
+    setWriteMethod: setWriteMethod,
+    getLocalStorage: getLocalStorage,
+    setLocalStorage: setLocalStorage,
+    validatename: validatename,
+    validatelastname: validatelastname,
+    validatefathername: validatefathername,
+    validategender: validategender,
+    validatecourse: validatecourse,
+    validateaddress: validateaddress,
+    validatecity: validatecity,
+    validatestate: validatestate,
+    validatepincode: validatepincode,
+    validateemail: validateemail,
+    validatepassword: validatepassword,
+    validatedob: validatedob,
+    validatemobileNumber: validatemobileNumber
   }
-}
-
-//Deletes an object from the local storage based on an index
-
-function deleteFromStorage(index) {
-
-  var findObjectName = $('.tableData tbody').find('._row'+index+' .firstname')[0].innerText;
-
-  if (index == Data.getrowIdtoEdit()) {
-    setWriteMethod("Submit");
-  }
-
-  var currentArray = getLocalStorage()
-  var objectToDelete = currentArray.filter(e => e._f_firstname === findObjectName)[0];
-  currentArray = currentArray.filter(each => each !== objectToDelete);
-  setLocalStorage(JSON.stringify(currentArray));
-
-  deletefromTable(index);
-}
-
-//Deletes a row from the table
-
-function deletefromTable(index) {
-  var fetchedRow = $('.tableData tbody').find('._row'+index)[0];
-  fetchedRow.remove();
-}
-
-
-//Get function for write method
-function getWriteMethod() {
-  return $('.submit')[0].innerText;
-}
-//Set function for write method
-function setWriteMethod(method) {
-  $('.submit')[0].innerText = method;
-}
-//Get value for local storage array
-
-function getLocalStorage() {
-  return JSON.parse(localStorage.getItem('storage'));
-}
-
-//Set value function for write method
-
-function setLocalStorage(newItem) {
-  localStorage.setItem('storage', newItem);
-}
-
-//function to validate  first name
-function validatename() {
-  let form= document.StudentSignupForm;
-  if(form.firstname.value == "") {
-    alert("Enter your First Name!");
-    form.firstname.focus();
-    return;
-  }
-}
-
-//function to validate last name
-function validatelastname() {
-  let form= document.StudentSignupForm;
-  if (form.lastname.value == "") {
-    alert("Enter Your Last Name!");
-    form.lastname.focus();
-    return  ;
-  }
-}
-
-//function to validate father name
-function validatefathername() {
-  let form= document.StudentSignupForm;
-  if (form.fathername.value == "") {
-    alert("Enter Your Father Name!");
-    form.fathername.focus();
-    return  ;
-  }
-}
-
-//function to validate gender
-function validategender() {
-  let form= document.StudentSignupForm;
-  if ((StudenSignupForm.gender[0].checked == false) && (StudenSignupForm.gender[1].checked == false)) {
-    alert("Choose Your Gender: Male or Female");
-    form.gender.focus();
-    return ;
-  }
-}
-
-//function to validate course
-function validatecourse() {
-  let form= document.StudentSignupForm;
-  if (form.course.value == "") {
-    alert("Enter the Course Name!");
-    form.course.focus();
-    return  ;
-  }
-}
-
-//function to validate address
-function validateaddress() {
-  let form= document.StudentSignupForm;
-  if (form.address.value == "") {
-    alert("Enter your address!");
-    form.address.focus();
-    return  ;
-  }
-}
-
-//function to validate city
-function validatecity() {
-  let form= document.StudentSignupForm;
-  if (form.city.value == "") {
-    alert("Enter your city name!");
-    form.city.focus();
-    return  ;
-  }
-}
-
-//function to validate state
-function validatestate() {
-  let form= document.StudentSignupForm;
-  if (form.state.value == "") {
-    alert("Enter your state!");
-    form.state.focus();
-    return  ;
-  }
-}
-
-//function to validate pincode
-function validatepincode() {
-  let form= document.StudentSignupForm;
-  if (form.pincode.value == "" ||
-    isNaN(form.pincode.value) ||
-    form.pincode.value.length != 6) {
-    alert("Enter your pincode in format ######.");
-    form.pincode.focus();
-    return ;
-  }
-}
-
-//function to validate email
-function validateemail() {
-  let form= document.StudentSignupForm;
-  var email = form.emailid.value;
-  atpos = email.indexOf("@");
-  dotpos = email.lastIndexOf(".");
-  if (email == "" || atpos < 1 || (dotpos - atpos < 2)) {
-    alert("Enter your correct email ID")
-    form.emailid.focus();
-    return ;
-  }
-}
-
-//function to validate password
-function validatepassword() {
-  let form= document.StudentSignupForm;
-  if (form.password.value == "") {
-    alert("Enter Your Password!");
-    form.password.focus();
-    return false;
-  }
-}
-
-//function to validate date of birth
-function validatedob() {
-  let form= document.StudentSignupForm;
-  if (form.dob.value == "") {
-    alert("Enter your Date of birth!");
-    form.dob.focus();
-    return false;
-  }
-}
-
-//function to validate mobile number
-function validatemobileNumber() {
-  let form= document.StudentSignupForm;
-  if (form.mobile_no.value == "" ||
-  isNaN(form.mobile_no.value) ||
-  form.mobile_no.value.length != 10) {
-  alert("Enter your Mobile No. in the format 123.");
-  form.mobile_no.focus();
-  return false;
-  }
-}
-
-//Returns an object with references to getters and setters
-return {
-  setrowIdtoEdit: setrowIdtoEdit,
-  getrowIdtoEdit: getrowIdtoEdit,
-  getRowByIndex: getRowByIndex,
-  addDatatoTable: addDatatoTable,
-  appendrowToTable: appendrowToTable,
-  clearForm: clearForm,
-  writeToStorage: writeToStorage,
-  updateStorage: updateStorage,
-  sendDataToForm: sendDataToForm,
-  updateTableRow: updateTableRow,
-  deleteFromStorage: deleteFromStorage,
-  deletefromTable: deletefromTable,
-  getWriteMethod: getWriteMethod,
-  setWriteMethod: setWriteMethod,
-  getLocalStorage: getLocalStorage,
-  setLocalStorage: setLocalStorage,
-  validatename: validatename,
-  validatelastname: validatelastname,
-  validatefathername: validatefathername,
-  validategender: validategender,
-  validatecourse: validatecourse,
-  validateaddress: validateaddress,
-  validatecity: validatecity,
-  validatestate: validatestate,
-  validatepincode: validatepincode,
-  validateemail: validateemail,
-  validatepassword: validatepassword,
-  validatedob: validatedob,
-  validatemobileNumber: validatemobileNumber
-}
 })();
